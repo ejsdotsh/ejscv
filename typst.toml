@@ -1,0 +1,20 @@
+[package]
+name = "ejscv"
+version = "0.0.1"
+entrypoint = "ejscv.typ"
+authors = ["ejsdotsh"]
+license = "Apache2.0"
+description = "a simple CV template"
+repository = "https://github.com/ejsdotsh/ejscv"
+keywords = ["cv", "resume"]
+categories = ["cv"]
+disciplines = []
+compiler = "0.13.0"
+exclude = [
+  "docs/",
+  "tests/",
+  ".git",
+  ".gitignore",
+  ".github",
+  ".vscode",
+]
