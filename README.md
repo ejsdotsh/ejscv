@@ -1,2 +1,3 @@
 # ejscv
-the Typst template for my CV
+
+The Typst template for my CV. Packaging, documentation, and examples are a work-in-progress...
