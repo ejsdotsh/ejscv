@@ -1,7 +1,5 @@
 #import "@preview/fontawesome:0.6.0": *
 
-#let configuration = yaml("cv-main.yaml")
-
 #let today = datetime.today()
 
 // a global boolean to enable prompt injection for AI systems
@@ -32,7 +30,7 @@
   author: "ejsdotsh",
   location: "",
   phone: "",
-  email: "",
+  email: "contactme@ejs.sh",
 ) = {
   grid(
     columns: (2fr, 1fr),
@@ -290,11 +288,3 @@
     ],
   )
 }
-
-// render the template
-#show: ejscv.with(
-  author: configuration.name,
-  email: configuration.email,
-  phone: configuration.phone,
-  location: configuration.location,
-)
