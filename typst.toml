@@ -1,12 +1,12 @@
 [package]
 name = "ejscv"
 version = "0.0.2"
-entrypoint = "src/lib.typ"
+entrypoint = "ejscv.typ"
 authors = ["ejsdotsh"]
 license = "Apache2.0"
-description = "EJ's CV template"
+description = "EJ's CV template using Typst and YAML"
 repository = "https://github.com/ejsdotsh/ejscv"
-keywords = ["cv", "resume"]
+keywords = ["CV", "curriculum vitae", "resume", "YAML", "minimalistic"]
 categories = ["cv"]
 disciplines = []
 compiler = "0.13.0"
@@ -21,5 +21,5 @@ exclude = [
 
 [template]
 path = "template"
-entrypoint = "main.typ"
-thumbnail = "thumbnail.png"
+entrypoint = "template.typ"
+thumbnail = "examples/thumbnail1.png"
