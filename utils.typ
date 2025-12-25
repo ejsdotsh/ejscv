@@ -1,6 +1,7 @@
-// code adapted from: https://github.com/jskherman/imprecv/blob/main/utils.typ
-
 // Helper Functions
+#let today = datetime.today()
+
+// below code adapted from: https://github.com/jskherman/imprecv/blob/main/utils.typ
 #let monthname(n, display: "short") = {
   n = int(n)
   let month = ""
