@@ -1,31 +1,9 @@
 #import "@preview/fontawesome:0.6.0": *
 
-#let today = datetime.today()
+// utility functions
+#import "utils.typ": *
 
-// a global boolean to enable prompt injection for AI systems
-#let use_injection = false
-
-#set par(justify: true)
-#set text(
-  font: "Noto Sans",
-  size: 10pt,
-  hyphenate: false,
-)
-
-#show heading.where(level: 1): it => block(width: 100%)[
-  #set align(left)
-  #set text(13pt, weight: "regular")
-  #underline[#smallcaps(it.body)]
-]
-
-#show heading.where(level: 2): it => text(
-  size: 10pt,
-  weight: "bold",
-  style: "italic",
-  it.body,
-)
-
-// contact
+// title/contact block
 #let contact(
   author: "ejsdotsh",
   location: "",
@@ -58,81 +36,37 @@
 }
 
 // summary
-#let main_summary() = {
+#let main_summary(cvdata) = {
   set list(marker: (none, [•]))
   [
     - #block(breakable: false)[
         #if (
-          configuration.main_summary.summary != none
-        ) [#configuration.main_summary.summary]
-        #if configuration.main_summary.highlights != none [
-          #for highlight in configuration.main_summary.highlights {
+          cvdata.summary != none
+        ) [#cvdata.summary]
+        #if cvdata.highlights != none [
+          #for highlight in cvdata.highlights {
             [- #highlight]
           }
         ]
       ]
   ]
-
   set par(justify: true, spacing: 1.2em)
 }
 
 // technologies and languages
-#let technologies_and_languages() = {
+#let technologies_and_languages(technologies) = {
   [= technologies and languages]
-  // set par(
-  //   justify: false,
-  //   spacing: 1em,
-  //   )
-  // table(
-  //   stroke: none,
-  //   columns: (1fr, 1fr, 1fr),
-  //   align: (start, start, start),
-  //   // gutter: 0pt,
-  //   ..configuration.core_skills,
-  // )
   set par(justify: true, spacing: 1.2em)
-  for category in configuration.skills {
+  for category in technologies {
     set list(marker: none)
     [- / #category.label: #category.skill.join(" - ")]
   }
 }
 
-// links to linkedin, github, website, etc.
-#let links() = {
-  [= links]
-  set list(marker: none)
-  for link in configuration.links {
-    [- #fa-icon(link.name, size: 0.9em) #h(0.05cm) #text(9pt)[#link.url]]
-  }
-}
-
-// education
-#let education() = {
-  [= education]
-  for ed in configuration.education {
-    set list(marker: none)
-    [- #text(weight: "bold")[#ed.degree, #ed.area]]
-    [- #ed.institution]
-  }
-}
-
-// Function to handle prompt injection for AI systems
-// adapted from https://github.com/ToyHugs/toy-cv
-#let inject-keywords(keywords-injection) = {
-    let prompt-ai = "technologies:"
-
-    if keywords-injection != none {
-      prompt-ai = prompt-ai + " " + keywords-injection.join(" ")
-    }
-
-    place(text(prompt-ai, size: 1pt, fill: white), dx: 0pt, dy: 0pt)
-  }
-
-
 // professional experience
-#let professional_experience() = {
+#let professional_experience(jobs) = {
   [= professional experience]
-  for job in configuration.jobs {
+  for job in jobs {
     set list(marker: (none, none, [•]))
     [
       - #block(breakable: false)[
@@ -154,16 +88,15 @@
                 [- #item]
               }
             ]
-            #if use_injection and job.keywords != none [#inject-keywords(job.keywords)]
         ]
     ]
   }
 }
 
-// select projects
-#let select_projects() = {
-  [= select projects]
-  for project in configuration.projects {
+// projects and affiliations/membership
+#let projects_and_affiliations(projects, affiliations) = {
+  [= projects and affiliations]
+  for project in projects {
     set list(marker: (none, [•]))
     [
       - #grid(
@@ -181,32 +114,66 @@
         - #if project.url != none [#project.url]
     ]
   }
-}
-
-// certifications and affiliations/membership
-#let certifications_and_affiliations() = {
-  [= certifications and affiliations]
   set list(marker: none)
-  for aac in configuration.affiliations {
+  for afln in affiliations {
     [
       - #grid(
           columns: (auto, 1fr),
           [
             #align(left)[
-              #if aac.name != none [#aac.role \- #aac.name] else [#aac.role]
+              #if afln.name != none [#afln.role \- #afln.name] else [#afln.role]
             ]
           ],
           [
-            #align(right)[#aac.start_date\-#aac.end_date]
+            #align(right)[#afln.start_date\-#afln.end_date]
           ],
         )
     ]
+    [
+      - #if afln.summary != none [#afln.summary]
+        - #if afln.url != none [#afln.url]
+    ]
+  }
+}
+
+// links to linkedin, github, website, etc.
+#let links(links) = {
+  [= links]
+  set list(marker: none)
+  for link in links {
+    [- #fa-icon(link.name, size: 0.9em) #h(0.05cm) #text(9pt)[#link.url]]
+  }
+}
+
+// education
+#let education_and_certifications(education, certifications) = {
+  [= education and certifications]
+  set list(marker: none)
+  for cert in certifications {
+    [
+      - #grid(
+          columns: (auto, 1fr),
+          [
+            #align(left)[
+              #if cert.name != none [#cert.name]
+            ]
+          ],
+          [
+            #align(right)[#cert.start_date\-#cert.end_date]
+          ],
+        )
+    ]
+  }
+  for edu in education {
+    set list(marker: none)
+    [- #text(weight: "bold")[#edu.degree, #edu.area]]
+    [- #edu.institution]
   }
 }
 
 // footer definition
 #let footer(
-  email: "",
+  email: "contactme@ejs.sh",
   phone: "",
 ) = {
   set text(8pt)
@@ -231,60 +198,76 @@
 }
 
 
-// define the CV layout
+// finally, define the CV layout
 #let ejscv(
-  author: "",
-  email: "",
-  phone: "",
-  location: "",
+  cvdata,
   doc,
 ) = {
+  set par(justify: true)
+  set text(
+    font: "Noto Sans",
+    size: 10pt,
+    hyphenate: false,
+  )
+  // underline and make smallcaps all H1
+  show heading.where(level: 1): it => block(width: 100%)[
+    #set align(left)
+    #set text(13pt, weight: "regular")
+    #underline[#smallcaps(it.body)]
+  ]
+  // italicize all H2
+  show heading.where(level: 2): it => text(
+    size: 10pt,
+    weight: "bold",
+    style: "italic",
+    it.body,
+  )
+  // set the page size
   set page(
     paper: "us-letter",
     margin: (x: 2cm, y: 1cm),
     footer: context [
       #footer(
-        email: email,
-        phone: phone,
+        email: cvdata.contact.email,
+        phone: cvdata.contact.phone,
       )
     ],
   )
-
+  // populate the contact information
   contact(
-    author: author,
-    email: email,
-    phone: phone,
-    location: location,
+    author: cvdata.contact.name,
+    email: cvdata.contact.email,
+    phone: cvdata.contact.phone,
+    location: cvdata.contact.location,
   )
-
+  // draw a horizontal line
   line(length: 100%, start: (0%, 0%), stroke: 0.5pt)
-
+  // insert 1em of vertical spacing
   v(1em)
+  // add more space to the side margins, but only for the summary block
   pad(
     left: 1.5em,
     right: 1.5em,
-    main_summary(),
+    main_summary(cvdata.main_summary),
   )
-
+  // insert 1em of vertical spacing
   v(1em)
-  technologies_and_languages()
-
+  technologies_and_languages(cvdata.skills)
+  // insert 1em of vertical spacing
   v(1em)
-  professional_experience()
-
+  professional_experience(cvdata.jobs)
+  // insert 1em of vertical spacing
   v(1em)
-  certifications_and_affiliations()
-
+  projects_and_affiliations(cvdata.projects, cvdata.affiliations)
+  // insert 1em of vertical spacing
   v(1em)
   grid(
     columns: (1fr, 2fr),
     [
-      // #links()
-      #education()
+      #links(cvdata.contact.links)
     ],
     [
-      #links()
-      // #select_projects()
+      #education_and_certifications(cvdata.education, cvdata.certifications)
     ],
   )
 }
