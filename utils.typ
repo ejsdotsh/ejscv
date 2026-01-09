@@ -1,6 +1,11 @@
 // Helper Functions
 #let today = datetime.today()
 
+// olderThan returns the boolean result if a date is more than given range old.
+#let olderThan(range, date) = {
+  return today.year() - range >= int(date.slice(0, 4))
+}
+
 // below code adapted from: https://github.com/jskherman/imprecv/blob/main/utils.typ
 #let monthname(n, display: "short") = {
   n = int(n)

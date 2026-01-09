@@ -66,28 +66,28 @@
 // professional experience
 #let professional_experience(jobs) = {
   [= professional experience]
+  let _today = strpdate(today.display())
   for job in jobs {
+    let start = strpdate(job.start_date)
+    let end = strpdate(job.end_date)
     set list(marker: (none, none, [•]))
     [
       - #block(breakable: false)[
           #grid(
             columns: (1fr, auto),
             [
-              #align(left)[== #job.company]
-            ],
-            [
-              #align(right)[== #job.title
-                | #job.start_date \- #job.end_date
+              #align(left)[ == #job.company \
+                === #job.title
               ]
             ],
+            [
+              #align(right)[ #job.location \
+                #daterange(start, end)]
+            ],
           )
-          // - #if job.asn != none [(AS#job.asn)]
-          - #if job.summary != none [#job.summary]
-            #if job.highlights != none [
-              #for item in job.highlights {
-                [- #item]
-              }
-            ]
+          #if job.highlights != none and not olderThan(15, job.end_date) [
+            - #for item in job.highlights { [- #item] }
+          ]
         ]
     ]
   }
@@ -105,13 +105,12 @@
             #align(left)[#text(weight: "bold")[#project.name]]
           ],
           [
-            #align(right)[#project.start_date - #project.end_date]
+            #align(right)[#text(style: "italic")[#if project.url != none [#project.url]]]
           ],
         )
     ]
     [
-      - #if project.summary != none [#project.summary]
-        - #if project.url != none [#project.url]
+      #if project.summary != none [- #project.summary]
     ]
   }
   set list(marker: none)
@@ -121,17 +120,16 @@
           columns: (auto, 1fr),
           [
             #align(left)[
-              #if afln.name != none [#afln.role \- #afln.name] else [#afln.role]
+              #if afln.name != none [== #afln.name] \
+              #if afln.roles != none [#for role in afln.roles { [#role.name \ ] }]
             ]
           ],
           [
-            #align(right)[#afln.start_date\-#afln.end_date]
+            #align(right)[
+              #if afln.url != none [#text(style: "italic")[#afln.url \ ]] else [ \ ]
+              #if afln.roles != none [#for role in afln.roles { [#daterange(role.start_date, role.end_date) \ ] }] ]
           ],
         )
-    ]
-    [
-      - #if afln.summary != none [#afln.summary]
-        - #if afln.url != none [#afln.url]
     ]
   }
 }
@@ -145,29 +143,44 @@
   }
 }
 
-// education
+// education and certifications
 #let education_and_certifications(education, certifications) = {
-  [= education and certifications]
+  [= education and certifications ]
   set list(marker: none)
   for cert in certifications {
+    if cert.current {
+      [
+        - #grid(
+            columns: (auto, 1fr),
+            [
+              #align(left)[
+                #if cert.name != none [#cert.name]
+              ]
+            ],
+            [
+              #align(right)[#cert.start_date\-#cert.end_date]
+            ],
+          )
+      ]
+    }
+  }
+  for edu in education {
     [
       - #grid(
           columns: (auto, 1fr),
           [
             #align(left)[
-              #if cert.name != none [#cert.name]
+              #text(weight: "bold")[#edu.degree, #edu.area]
             ]
           ],
           [
-            #align(right)[#cert.start_date\-#cert.end_date]
+            #align(right)[
+              #daterange(if edu.start_date != none [#strpdate(edu.start_date)], strpdate(edu.end_date))
+            ]
           ],
         )
+      - #edu.institution
     ]
-  }
-  for edu in education {
-    set list(marker: none)
-    [- #text(weight: "bold")[#edu.degree, #edu.area]]
-    [- #edu.institution]
   }
 }
 
@@ -209,17 +222,24 @@
     size: 10pt,
     hyphenate: false,
   )
-  // underline and make smallcaps all H1
+  // underline and make smallcaps H1
   show heading.where(level: 1): it => block(width: 100%)[
     #set align(left)
     #set text(13pt, weight: "regular")
     #underline[#smallcaps(it.body)]
   ]
-  // italicize all H2
+  // italicize and bold H2
   show heading.where(level: 2): it => text(
-    size: 10pt,
+    size: 11pt,
     weight: "bold",
     style: "italic",
+    it.body,
+  )
+  // italicize and bold H3
+  show heading.where(level: 3): it => text(
+    size: 10pt,
+    weight: "bold",
+    // style: "italic",
     it.body,
   )
   // set the page size
@@ -244,7 +264,7 @@
   line(length: 100%, start: (0%, 0%), stroke: 0.5pt)
   // insert 1em of vertical spacing
   v(1em)
-  // add more space to the side margins, but only for the summary block
+  // add more space to the side margins for the summary block
   pad(
     left: 1.5em,
     right: 1.5em,

@@ -6,8 +6,8 @@
   "title": "ejscv data schema",
   "required": [
     "contact",
+    "main_summary",
     "education",
-    "core_skills",
     "skills",
     "jobs"
   ],
@@ -59,6 +59,9 @@
     "main_summary": {
       "type": "object",
       "default": { },
+      "required": [
+        "summary"
+      ],
       "properties": {
         "summary": {
           "type": "string",
@@ -91,7 +94,10 @@
           "degree": {
             "type": "string"
           },
-          "date": {
+          "start_date": {
+            "type": "string"
+          },
+          "end_date": {
             "type": "string"
           },
           "location": {
@@ -194,6 +200,9 @@
           },
           "summary": {
             "type": "string"
+          },
+          "highlights": {
+            "type": "array"
           }
         }
       }
@@ -204,14 +213,27 @@
         "type": "object",
         "required": [
           "name",
-          "role"
+          "roles"
         ],
         "properties": {
           "name": {
             "type": "string"
           },
-          "role": {
-            "type": "string"
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "start_date": { "type": "string" },
+                "end_date": { "type": "string" }
+              }
+            }
           },
           "start_date": {
             "type": "string"
