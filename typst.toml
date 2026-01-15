@@ -1,23 +1,18 @@
+# SPDX-FileCopyrightText: 2025-present git@ejs.sh
+
 [package]
 name = "ejscv"
-version = "0.0.2"
+version = "0.1.0"
 entrypoint = "ejscv.typ"
 authors = ["ejsdotsh"]
 license = "Apache2.0"
-description = "EJ's CV template using Typst and YAML"
+description = "EJ's CV template using Typst and schema-validated YAML"
 repository = "https://github.com/ejsdotsh/ejscv"
 keywords = ["CV", "curriculum vitae", "resume", "YAML", "minimalistic"]
 categories = ["cv"]
 disciplines = []
 compiler = "0.13.0"
-exclude = [
-  "docs/",
-  "tests/",
-  ".git",
-  ".gitignore",
-  ".github",
-  ".vscode",
-]
+exclude = ["docs/", "tests/", ".git", ".gitignore", ".github", ".vscode"]
 
 [template]
 path = "template"

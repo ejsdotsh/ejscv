@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2025-present git@ejs.sh
+
 #import "@preview/fontawesome:0.6.0": *
 
 // utility functions

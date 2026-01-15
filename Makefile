@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2025-present git@ejs.sh
+
 DATE := $$(date +%Y%m%d)
 
 .DEFAULT_GOAL := cv

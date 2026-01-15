@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2025-present git@ejs.sh
+
 ## # yaml-language-server: $schema=https://raw.githubusercontent.com/ejsdotsh/ejscv/refs/heads/main/ejscv.typ.schema.json
 # for local development
 # yaml-language-server: $schema=../ejscv.typ.schema.json

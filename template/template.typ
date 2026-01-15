@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2025-present git@ejs.sh
+
 // import the Typst template
 // #import "@preview/ejscv:0.1.0": *
 // for local development, uncomment/use an absolute path

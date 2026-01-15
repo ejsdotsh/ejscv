@@ -1,3 +1,7 @@
+<!--
+SPDX-FileCopyrightText: 2025-present git@ejs.sh
+-->
+
 # EJ's CV Template
 
 I've been using LaTeX (XeTeX) as the primary source for my CV since 2008ish. Although Tectonic was a huge improvement
