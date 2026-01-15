@@ -1,4 +1,6 @@
-# yaml-language-server: $schema:https://raw.githubusercontent.com/ejsdotsh/ejscv/refs/heads/main/ejscv.typ.schema.json
+## # yaml-language-server: $schema=https://raw.githubusercontent.com/ejsdotsh/ejscv/refs/heads/main/ejscv.typ.schema.json
+# for local development
+# yaml-language-server: $schema=../ejscv.typ.schema.json
 
 contact:
   name: ejsdotsh
@@ -12,8 +14,8 @@ contact:
 
 main_summary:
   summary:
-   Lorem ipsum dolor sit amet consectetur adipiscing elit. Sit amet consectetur adipiscing elit quisque faucibus ex.
-   Adipiscing elit quisque faucibus ex sapien vitae pellentesque.
+    Lorem ipsum dolor sit amet consectetur adipiscing elit. Sit amet consectetur adipiscing elit quisque faucibus ex.
+    Adipiscing elit quisque faucibus ex sapien vitae pellentesque.
   highlights:
     - Lorem ipsum dolor sit amet consectetur adipiscing elit.
 
@@ -104,20 +106,20 @@ skills:
 projects:
   - name: EJ's CV (template)
     url: https://github.com/ejsdotsh/ejscv
-    start_date: 2025
+    start_date: 2025-10
     end_date: present
     summary: Rewriting my LaTeX CV as a Typst template that uses schema-validated YAML for data.
     highlights:
 
 affiliations:
   - name: Lorem Ipsum Group
-    url: 
+    url:
     roles:
       - name: Panelist/Speaker, "Operational Experiences with Lorem Ipsum"
         start_date:
         end_date: Feb 2010
       - name: Member
-        start_date: 2002
+        start_date: 2002-01-01
         end_date: present
     summary:
     highlights:

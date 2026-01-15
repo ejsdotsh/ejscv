@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/ejsdotsh/ejscv/refs/heads/main/ejscv.typ.schema.json",
   "type": "object",
-  "default": { },
+  "default": {},
   "title": "ejscv data schema",
   "required": [
     "contact",
@@ -14,7 +14,7 @@
   "properties": {
     "contact": {
       "type": "object",
-      "default": { },
+      "default": {},
       "required": [
         "name",
         "email"
@@ -58,17 +58,16 @@
     },
     "main_summary": {
       "type": "object",
-      "default": { },
+      "default": {},
       "required": [
         "summary"
       ],
       "properties": {
         "summary": {
-          "type": "string",
-          "default": ""
+          "type": "string"
         },
         "highlights": {
-          "type": "array",
+          "type": ["array", "null"],
           "items": {
             "type": "string"
           }
@@ -94,20 +93,14 @@
           "degree": {
             "type": "string"
           },
-          "start_date": {
-            "type": "string"
-          },
-          "end_date": {
-            "type": "string"
-          },
-          "location": {
-            "type": "string"
-          }
+          "location": { "type": ["string", "null"] },
+          "start_date": { "type": ["string", "null"] },
+          "end_date": { "type": ["string", "null"] }
         }
       }
     },
     "core_skills": {
-      "type": "array",
+      "type": ["array", "null"],
       "items": {
         "type": "string"
       }
@@ -156,20 +149,16 @@
           "end_date": {
             "type": "string"
           },
-          "location": {
-            "type": "string"
-          },
-          "summary": {
-            "type": "string"
-          },
+          "location": { "type": ["string", "null"] },
+          "summary": { "type": ["string", "null"] },
           "highlights": {
-            "type": "array",
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
           },
           "technologies": {
-            "type": "array",
+            "type": ["array", "null"],
             "items": {
               "type": "string"
             }
@@ -192,18 +181,10 @@
           "url": {
             "type": "string"
           },
-          "start_date": {
-            "type": "string"
-          },
-          "end_date": {
-            "type": "string"
-          },
-          "summary": {
-            "type": "string"
-          },
-          "highlights": {
-            "type": "array"
-          }
+          "start_date": { "type": ["string", "null"] },
+          "end_date": { "type": ["string", "null"] },
+          "summary": { "type": ["string", "null"] },
+          "highlights": { "type": ["string", "null"] }
         }
       }
     },
@@ -230,17 +211,13 @@
                 "name": {
                   "type": "string"
                 },
-                "start_date": { "type": "string" },
-                "end_date": { "type": "string" }
+                "start_date": { "type": ["string", "null"] },
+                "end_date": { "type": ["string", "null"] }
               }
             }
           },
-          "start_date": {
-            "type": "string"
-          },
-          "end_date": {
-            "type": "string"
-          }
+          "start_date": { "type": ["string", "null"] },
+          "end_date": { "type": ["string", "null"] }
         }
       }
     }
