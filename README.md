@@ -17,7 +17,7 @@ inline documentation with the [yaml-language-server](https://github.com/redhat-d
 IDE/editor:
 
 ```yaml
-# yaml-language-server: $schema:https://raw.githubusercontent.com/ejsdotsh/ejscv/refs/heads/main/ejscv.typ.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ejsdotsh/ejscv/refs/heads/main/ejscv.typ.schema.json
 ```
 
 ## Usage
