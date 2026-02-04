@@ -10,4 +10,4 @@ devcv:
 
 .PHONY: cv
 cv:
-	typst compile template/template.typ template/my-cv.pdf --root .
+	typst compile template/template.typ template/template.pdf --root .

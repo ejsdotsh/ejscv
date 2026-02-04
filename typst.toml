@@ -2,7 +2,7 @@
 
 [package]
 name = "ejscv"
-version = "0.1.0"
+version = "0.1.1"
 entrypoint = "ejscv.typ"
 authors = ["ejsdotsh"]
 license = "Apache2.0"

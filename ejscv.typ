@@ -177,7 +177,10 @@
           ],
           [
             #align(right)[
-              #daterange(if edu.start_date != none [#strpdate(edu.start_date)], strpdate(edu.end_date))
+              #daterange(
+                if edu.start_date != none [#strpdate(edu.start_date)],
+                if edu.end_date != none [#strpdate(edu.end_date)],
+              )
             ]
           ],
         )
