@@ -1,5 +1,3 @@
-// SPDX-FileCopyrightText: 2025-present git@ejs.sh
-
 // Helper Functions
 #let today = datetime.today()
 

@@ -10,6 +10,10 @@ previous coworker who recommended the [RenderCV](https://github.com/rendercv/ren
 
 This template is the result of what I've learned.
 
+## Features
+
+- JSON schema for YAML validation
+
 ## JSON Schema
 
 Put the following line at the top of the YAML data file to use the JSON schema for interactive autocompletion and
@@ -17,13 +21,30 @@ inline documentation with the [yaml-language-server](https://github.com/redhat-d
 IDE/editor:
 
 ```yaml
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ejsdotsh/ejscv/refs/heads/main/ejscv.typ.schema.json
+# yaml-language-server: $schema:https://raw.githubusercontent.com/ejsdotsh/ejscv/refs/heads/main/ejscv.typ.schema.json
 ```
 
 ## Usage
 
-This package is intended to be used by importing the template [entrypoint](https://github.com/ejsdotsh/ejscv/blob/main/ejscv.typ);
-please see [template.typ](template/template.typ) for a complete example.
+This package is intended to be used by importing the template entrypoint, [ejscv.typ](./ejscv.typ) in your CV template:
+
+```typst
+#import "@preview/ejscv:0.1.1": *
+
+// import the CV data from the YAML source
+#let cvdata = yaml("cv.yaml")
+
+// render the template with the imported YAML
+#show: ejscv.with(cvdata)
+```
+
+Then rendered with:
+
+```bash
+typst compile mycv.typ
+```
+
+Please see [template.typ](template/template.typ) for a complete example of the YAML input data.
 
 ## References
 

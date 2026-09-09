@@ -1,6 +1,4 @@
-// SPDX-FileCopyrightText: 2025-present git@ejs.sh
-
-#import "@preview/fontawesome:0.6.0": *
+#import "@preview/fontawesome:0.6.2": *
 
 // utility functions
 #import "utils.typ": *
@@ -87,7 +85,7 @@
                 #daterange(start, end)]
             ],
           )
-          #if job.highlights != none and not olderThan(15, job.end_date) [
+          #if job.highlights != none and not olderThan(21, job.end_date) [
             - #for item in job.highlights { [- #item] }
           ]
         ]
@@ -289,7 +287,9 @@
   grid(
     columns: (1fr, 2fr),
     [
+      #if cvdata.contact.links != none [
       #links(cvdata.contact.links)
+      ]
     ],
     [
       #education_and_certifications(cvdata.education, cvdata.certifications)

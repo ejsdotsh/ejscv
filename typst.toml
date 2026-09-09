@@ -3,16 +3,15 @@
 [package]
 name = "ejscv"
 version = "0.1.1"
-entrypoint = "ejscv.typ"
-authors = ["ejsdotsh"]
-license = "Apache2.0"
-description = "EJ's CV template using Typst and schema-validated YAML"
+compiler = "0.13.0"
 repository = "https://github.com/ejsdotsh/ejscv"
+entrypoint = "ejscv.typ"
+description = "EJ's CV template using Typst and schema-validated YAML"
+authors = ["e.j. sahala <https://github.com/ejsdotsh>"]
 keywords = ["CV", "curriculum vitae", "resume", "YAML", "minimalistic"]
 categories = ["cv"]
-disciplines = []
-compiler = "0.13.0"
-exclude = ["docs/", "tests/", ".git", ".gitignore", ".github", ".vscode"]
+license = "Apache-2.0"
+exclude = ["docs/", "examples/", "tests/", "template/*.pdf", ".git", ".gitignore", ".github", ".vscode"]
 
 [template]
 path = "template"
