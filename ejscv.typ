@@ -36,21 +36,24 @@
 }
 
 // summary
-#let main_summary(cvdata) = {
+#let main_summary(cvd) = {
   set list(marker: (none, [•]))
+  set par(justify: true, spacing: 1.2em)
   [
-    - #block(breakable: false)[
-        #if (
-          cvdata.summary != none
-        ) [#cvdata.summary]
-        #if cvdata.highlights != none [
-          #for highlight in cvdata.highlights {
+    #if (cvd.summary != none) [
+      #block(breakable: false)[#cvd.summary]
+    ]
+
+    #if (cvd.highlights != none) [
+      #pad(left: 0.5em, right: 1em)[
+        - #block(breakable: false)[
+          #for highlight in cvd.highlights {
             [- #highlight]
           }
         ]
       ]
+    ]
   ]
-  set par(justify: true, spacing: 1.2em)
 }
 
 // technologies and languages
@@ -70,22 +73,31 @@
   for job in jobs {
     let start = strpdate(job.start_date)
     let end = strpdate(job.end_date)
+    let old = olderThan(20, job.end_date)
     set list(marker: (none, none, [•]))
     [
       - #block(breakable: false)[
           #grid(
             columns: (1fr, auto),
-            [
-              #align(left)[ == #job.company \
+            if old [
+              === #job.company, #job.title
+            ] else [
+              == #job.company \
                 === #job.title
+            ],
+            if old [
+              #align(right)[
+                #if job.location != none [#job.location, ]
+                #daterange(start, end)
+              ]
+            ] else [
+              #align(right)[
+                #job.location \
+                #daterange(start, end)
               ]
             ],
-            [
-              #align(right)[ #job.location \
-                #daterange(start, end)]
-            ],
           )
-          #if job.highlights != none and not olderThan(21, job.end_date) [
+          #if job.highlights != none and not old [
             - #for item in job.highlights { [- #item] }
           ]
         ]
